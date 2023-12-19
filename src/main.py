@@ -20,7 +20,7 @@ def user_interaction():
         print(i)
     print('Отсортировать данные и записать в файл?')
     ans = input()
-    if ans == 'yes':
+    if ans.lower() == 'да':
         from_all = JSONSaver()
         from_all.add_vacancies(from_hh)
         from_all.add_vacancies(from_sj)
