@@ -1,3 +1,6 @@
+import json
+
+
 class Vacancy:
     "Класс для хранения информации о вакансии"
 
@@ -9,23 +12,23 @@ class Vacancy:
         self.salary_to = salary_to
         self.city = city
 
-    def __eq__(self, other):
-        return self.salary_from == other.salary_from
+    #def __eq__(self, other):
+        #return self.salary_from == other.salary_from
 
-    def __ne__(self, other):
-        return self.salary_from != other.salary_from
+    #def __ne__(self, other):
+        #return self.salary_from != other.salary_from
 
-    def __lt__(self, other):
-        return self.salary_from < other.salary_from
+    #def __lt__(self, other):
+        #return self.salary_from < other.salary_from
 
-    def __gt__(self, other):
-        return self.salary_from > other.salary_from
+    #def __gt__(self, other):
+        #return self.salary_from > other.salary_from
 
-    def __le__(self, other):
-        return self.salary_from <= other.salary_from
+    #def __le__(self, other):
+        #return self.salary_from <= other.salary_from
 
-    def __ge__(self, other):
-        return self.salary_from >= other.salary_from
+    #def __ge__(self, other):
+        #return self.salary_from >= other.salary_from
 
     def __str__(self):
         return f'id: {self.job_id}\n' \
@@ -48,7 +51,7 @@ class Vacancy:
 
     @staticmethod
     def from_dict(vacan_dict):
-        """татический метод для перевода словаря в ваканцию"""
+        """Статический метод для перевода словаря в вакансию"""
         return Vacancy(
             vacan_dict['job_id'],
             vacan_dict['job_url'],
@@ -63,17 +66,53 @@ class Vacancies:
     """Класс для хранения и обработки вакансий"""
 
     def __init__(self):
+        "Создание словаря"
         self.__all_vacancies = []
 
     def add_vacancies(self, new_vacancies):
+        "Добавление вакансии в словарь"
         self.__all_vacancies += new_vacancies
 
     def delete_vacancies(self, old_vacancies):
+        "Удаление вакансии из словаря"
         for i in old_vacancies:
             self.__all_vacancies.remove(i)
 
-    def sort_vacancies_by_salary(self):
-        self.__all_vacancies.sort(reverse=True)
+    #def sort_vacancies_by_salary(self):
+        #"Сортировка в словаре"
+        #self.__all_vacancies.sort(reverse=True)
+
+    def sorting (self, list_dict):
+        vacancies_list = []
+        vacancies_sort = sorted(list_dict, key=lambda vacancy: vacancy["salary_from"], reverse=True)
+        for vacancy in vacancies_sort:
+            vacancies_list.append(f"""
+            ID вакансии: {vacancy['job_id']}
+            Cсылка: {vacancy['job_url']},
+            Должность: {vacancy['name']},
+            Минимальная оплата:{vacancy['salary_from']},
+            Максимальная оплата:{vacancy['salary_to']},
+            Город: {vacancy['city']}""")
+        with open(f'sort.json', 'w', encoding='UTF-8') as file:
+            json.dump(vacancies_sort, file, indent=2, ensure_ascii=False)
+        return vacancies_list
+
+    def get_top (self, list_dict, top_count):
+        top_list = []
+        vacancies_sort = sorted(list_dict, key=lambda vacancy: vacancy["salary_from"], reverse=True)
+        top_vacancies = vacancies_sort[0:top_count]
+        for vacancy in top_vacancies:
+            top_list.append(f"""
+            ID вакансии: {vacancy['job_id']}
+            Cсылка: {vacancy['job_url']},
+            Должность: {vacancy['name']},
+            Минимальная оплата:{vacancy['salary_from']},
+            Максимальная оплата:{vacancy['salary_to']},
+            Город: {vacancy['city']}""")
+        with open(f'top.json', 'w', encoding='UTF-8') as file:
+            json.dump(top_vacancies, file, indent=2, ensure_ascii=False)
+        return top_list
+
 
     @property
     def all_vacancies(self):
@@ -84,3 +123,4 @@ class Vacancies:
         for i in self.__all_vacancies:
             a.append(i.to_dict())
         return a
+

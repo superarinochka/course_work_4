@@ -50,6 +50,7 @@ class SuperJobAPI(JobAPI):
         self.url = 'https://api.superjob.ru/2.0/vacancies'
 
     def get_vacancies(self, name_job, pages):
+        "Получение вакансий и формирование ответа"
         url = self.url
         ans = []
         head = {'Host': 'api.superjob.ru',
