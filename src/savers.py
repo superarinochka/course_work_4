@@ -18,10 +18,12 @@ class JSONSaver(Vacancies, Saver):
     """Класс для обработки списка вакансий в JSON формате"""
 
     def save_vacancies(self):
+        "Запись вакансий"
         with open('vacancies.json', 'w') as fh:
             json.dump(self.to_list_dict(), fh)
 
     def read_vacancies(self):
+        "Чтение вакансий"
         with open('vacancies.json', 'r') as fh:
             list_dict = json.load(fh)
         self.__all_vacancies = []
