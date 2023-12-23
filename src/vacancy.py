@@ -82,7 +82,7 @@ class Vacancies:
         #"Сортировка в словаре"
         #self.__all_vacancies.sort(reverse=True)
 
-    def sorting (self, list_dict):
+    def sorting (self, poe):
         vacancies_list = []
         vacancies_sort = sorted(list_dict, key=lambda vacancy: vacancy["salary_from"], reverse=True)
         for vacancy in vacancies_sort:
