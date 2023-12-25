@@ -1,4 +1,4 @@
-from src.vacancy import Vacancy, Vacancies
+from src.vacancy import Vacancy, Vacancies, get_top
 from src.savers import JSONSaver
 from src.job_api import HeadHunterAPI, SuperJobAPI
 
@@ -21,7 +21,7 @@ def user_interaction():
     print('Отсортировать вакансии по зарплате?')
     ans_1 = input()
     if ans_1.lower() == 'да':
-        for top in get_top(list_dict):
+        for top in get_top():
             print(top)
     else:
         return
