@@ -1,7 +1,9 @@
 from src.vacancy import Vacancy, Vacancies, get_top
 from src.savers import JSONSaver
 from src.job_api import HeadHunterAPI, SuperJobAPI
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def user_interaction():
     print('Добро пожаловать! Введите ключевое слово для поиска по профессии')
