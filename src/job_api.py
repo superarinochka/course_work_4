@@ -1,8 +1,8 @@
 import requests
 from src.vacancy import Vacancy
 import os
-
 from dotenv import load_dotenv
+
 load_dotenv()
 
 class JobAPI:
