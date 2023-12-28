@@ -1,6 +1,9 @@
 import requests
 from src.vacancy import Vacancy
+import os
 
+from dotenv import load_dotenv
+load_dotenv()
 
 class JobAPI:
     """Абстрактный класс для хранения информации из API"""
@@ -54,7 +57,7 @@ class SuperJobAPI(JobAPI):
         url = self.url
         ans = []
         head = {'Host': 'api.superjob.ru',
-                'X-Api-App-Id': 'v3.r.137481860.2f6fdcea921e501a98fb679f795569d82af845d3.e781d2104d5ec01741cb5fc338ac0ac56586377d'
+                'X-Api-App-Id': os.environ.get('SUPERJOB_API_KEY')
                 }
         for i in range(pages):
             par = {'keyword': name_job, 'count': 3, 'page': i}
