@@ -1,4 +1,5 @@
 import json
+from savers import JSONSaver
 
 class Vacancy:
     "Класс для хранения информации о вакансии"
@@ -93,33 +94,36 @@ class Vacancies:
             a.append(i.to_dict())
         return a
 
-def sorting(ans):
-    vacancies_list = []
-    vacancies_sort = sorted(ans, key=lambda vacancy: vacancy["salary_from"], reverse=True)
-    for vacancy in vacancies_sort:
-        vacancies_list.append(f"""
-            ID вакансии: {vacancy['job_id']}
-            Cсылка: {vacancy['job_url']},
-            Должность: {vacancy['name']},
-            Минимальная оплата:{vacancy['salary_from']},
-            Максимальная оплата:{vacancy['salary_to']},
-            Город: {vacancy['city']}""")
-    with open(f'sort.json', 'w', encoding='UTF-8') as file:
-        json.dump(vacancies_sort, file, indent=2, ensure_ascii=False)
-    return vacancies_list
 
-def get_top (ans):
-    top_list = []
-    vacancies_sort = sorted(ans, key=lambda vacancy: vacancy["salary_from"], reverse=True)
-    top_vacancies = vacancies_sort[0:]
-    for vacancy in top_vacancies:
-        top_list.append(f"""
-            ID вакансии: {vacancy['job_id']}
-            Cсылка: {vacancy['job_url']},
-            Должность: {vacancy['name']},
-            Минимальная оплата:{vacancy['salary_from']},
-            Максимальная оплата:{vacancy['salary_to']},
-            Город: {vacancy['city']}""")
-    with open(f'top.json', 'w', encoding='UTF-8') as file:
-        json.dump(top_vacancies, file, indent=2, ensure_ascii=False)
-    return top_list
+class Sort:
+    def sorting(read_vacancies):
+        vacancies_list = []
+        vacancies_sort = sorted(read_vacancies, key=lambda vacancy: vacancy["salary_from"], reverse=True)
+        for vacancy in vacancies_sort:
+            vacancies_list.append(f"""
+                ID вакансии: {vacancy['job_id']}
+                Cсылка: {vacancy['job_url']},
+                Должность: {vacancy['name']},
+                Минимальная оплата:{vacancy['salary_from']},
+                Максимальная оплата:{vacancy['salary_to']},
+                Город: {vacancy['city']}""")
+        with open(f'sort.json', 'w', encoding='UTF-8') as file:
+            json.dump(vacancies_sort, file, indent=2, ensure_ascii=False)
+        return vacancies_list
+
+
+    def get_top (read_vacancies):
+        top_list = []
+        vacancies_sort = sorted(read_vacancies, key=lambda vacancy: vacancy["salary_from"], reverse=True)
+        top_vacancies = vacancies_sort[0:]
+        for vacancy in top_vacancies:
+            top_list.append(f"""
+                ID вакансии: {vacancy['job_id']}
+                Cсылка: {vacancy['job_url']},
+                Должность: {vacancy['name']},
+                Минимальная оплата:{vacancy['salary_from']},
+                Максимальная оплата:{vacancy['salary_to']},
+                Город: {vacancy['city']}""")
+        with open(f'top.json', 'w', encoding='UTF-8') as file:
+            json.dump(top_vacancies, file, indent=2, ensure_ascii=False)
+        return top_list

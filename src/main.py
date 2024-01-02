@@ -1,6 +1,6 @@
-from src.vacancy import Vacancy, Vacancies, get_top
-from src.savers import JSONSaver
-from src.job_api import HeadHunterAPI, SuperJobAPI
+from vacancy import Sort
+from savers import JSONSaver
+from job_api import HeadHunterAPI, SuperJobAPI
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -22,8 +22,9 @@ def user_interaction():
         print(i)
     print('Отсортировать вакансии по зарплате?')
     ans_1 = input()
+    my_vacancies = Sort()
     if ans_1.lower() == 'да':
-        for top in get_top():
+        for top in my_vacancies.classmethod():
             print(top)
     else:
         return
